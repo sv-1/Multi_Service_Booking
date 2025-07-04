@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book a Movie - Ticket System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="container">
+    <h2>🎬 Book a Movie</h2>
+
+
+    <div class="msg error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+    <div class="msg success" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+
+    <form th:action="@{/user/movie}" th:object="${booking}" method="post">
+
+
+        <label for="selectedMovieId">Select Movie:</label>
+        <select id="selectedMovieId" th:field="*{selectedMovieId}" required>
+            <option value="" disabled selected>Select a movie</option>
+            <option th:each="movie : ${movieList}"
+                    th:value="${movie.id}"
+                    th:text="${movie.title}">
+            </option>
+        </select>
+        <div class="field-error" th:if="${#fields.hasErrors('selectedMovieId')}"
+             th:errors="*{selectedMovieId}"></div>
+
+
+        <label for="eventDate">Event Date:</label>
+        <input type="date" id="eventDate" th:field="*{eventDate}" required />
+        <div class="field-error" th:if="${#fields.hasErrors('eventDate')}"
+             th:errors="*{eventDate}"></div>
+
+
+        <label for="showtime">Showtime:</label>
+        <input type="datetime-local"
+               id="showtime"
+               th:field="*{showtime}"
+               required />
+        <div class="field-error" th:if="${#fields.hasErrors('showtime')}"
+             th:errors="*{showtime}"></div>
+
+
+        <label for="seats">Number of Tickets:</label>
+        <input type="number"
+               id="seats"
+               th:field="*{seats}"
+               min="1" max="10"
+               required />
+        <div class="field-error" th:if="${#fields.hasErrors('seats')}"
+             th:errors="*{seats}"></div>
+
+
+        <button type="submit">🎟️ Book Movie</button>
+    </form>
+
+
+    <div style="text-align:center; margin-top: 15px;">
+        <a th:href="@{/user/dashboard}">🔙 Back to Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>

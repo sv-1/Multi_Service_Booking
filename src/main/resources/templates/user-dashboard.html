@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card a, .card form button {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #007bff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .card form {
+            margin: 0;
+            padding: 0;
+        }
+
+        .card form button:hover,
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        .welcome {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>User Dashboard</h2>
+
+
+    <div class="welcome" th:text="'Welcome, ' + ${#authentication.name} + '!'">Welcome!</div>
+
+    <div class="card-grid">
+
+        <div class="card">
+            <h3>Train Booking</h3>
+            <form th:action="@{/user/train}" method="get">
+                <button type="submit">Book Train Ticket</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Movie Booking</h3>
+            <form th:action="@{/user/movie}" method="get">
+                <button type="submit">Book a Movie</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Hotel Booking</h3>
+            <form th:action="@{/user/hotel}" method="get">
+                <button type="submit">Book a Hotel</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>My Bookings</h3>
+            <form th:action="@{/user/bookings}" method="get">
+                <button type="submit">View My Bookings</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Logout</h3>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" style="color: red;">Logout</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

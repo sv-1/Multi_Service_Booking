@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Booking - Ticket System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="container">
+    <h2>Book a Hotel</h2>
+
+
+    <div class="msg error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+
+    <div class="msg success" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+
+    <form th:action="@{/user/hotel}" th:object="${booking}" method="post">
+        <input type="hidden" name="debug" value="hotel-form-submitted" />
+
+
+        <label for="selectedHotelId">Select Hotel:</label>
+        <select id="selectedHotelId" th:field="*{selectedHotelId}" required>
+            <option value="" disabled selected>Select a hotel</option>
+            <option th:each="hotel : ${hotelList}"
+                    th:value="${hotel.id}"
+                    th:text="${hotel.name}">
+            </option>
+        </select>
+
+
+        <label for="eventDate">Booking Date:</label>
+        <input type="date" id="eventDate"
+               th:field="*{eventDate}"
+               th:min="${T(java.time.LocalDate).now()}"
+               required />
+
+
+        <label for="seats">Number of Rooms:</label>
+        <input type="number" id="seats"
+               th:field="*{seats}"
+               min="1" max="10"
+               required />
+
+        <button type="submit">Book Hotel</button>
+    </form>
+
+    <div style="text-align:center; margin-top: 15px;">
+        <a th:href="@{/user/dashboard}">Back to Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>

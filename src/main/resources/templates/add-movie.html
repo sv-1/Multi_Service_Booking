@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Movie</title>
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Add New Movie</h2>
+
+  <form th:action="@{/admin/add-movie}" th:object="${movie}" method="post">
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" required />
+    <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+
+    <label>Language:</label>
+    <input type="text" th:field="*{language}" required />
+    <div class="error" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></div>
+
+    <label>Total Seats:</label>
+    <input type="number" th:field="*{totalSeats}" min="1" required />
+    <div class="error" th:if="${#fields.hasErrors('totalSeats')}" th:errors="*{totalSeats}"></div>
+
+    <label>Available Seats:</label>
+    <input type="number" th:field="*{availableSeats}" min="0" required />
+    <div class="error" th:if="${#fields.hasErrors('availableSeats')}" th:errors="*{availableSeats}"></div>
+
+    <label>Showtime:</label>
+    <input type="datetime-local" th:field="*{showtime}" required />
+    <div class="error" th:if="${#fields.hasErrors('showtime')}" th:errors="*{showtime}"></div>
+
+    <button type="submit">Add Movie</button>
+  </form>
+
+  <div class="back-link">
+    <a th:href="@{/admin/dashboard}">Back to Dashboard</a>
+  </div>
+</div>
+</body>
+</html>

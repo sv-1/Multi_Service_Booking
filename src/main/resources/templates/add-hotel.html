@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Hotel - Admin</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <script th:src="@{/js/scripts.js}"></script>
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="navbar">
+  <div><strong>Admin Panel</strong></div>
+  <div>
+    <a th:href="@{/admin/dashboard}">Dashboard</a>
+    <a th:href="@{/admin/users}">Users</a>
+    <a th:href="@{/admin/bookings}">Bookings</a>
+    <a th:href="@{/logout}" style="color: red;">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Add New Hotel</h2>
+
+  <form th:action="@{/admin/add-hotel}" th:object="${hotel}" method="post">
+    <!-- Hotel Name -->
+    <label for="name">Hotel Name:</label>
+    <input type="text" id="name" th:field="*{name}" required />
+
+    <!-- Location -->
+    <label for="location">Location:</label>
+    <input type="text" id="location" th:field="*{location}" required />
+
+    <!-- Total Rooms -->
+    <label for="totalRooms">Total Rooms:</label>
+    <input type="number" id="totalRooms" th:field="*{totalRooms}" min="1" required />
+
+    <div class="form-actions">
+      <button type="submit">Add Hotel</button>
+    </div>
+  </form>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a th:href="@{/admin/dashboard}">⬅ Back to Dashboard</a>
+  </div>
+</div>
+
+</body>
+</html>

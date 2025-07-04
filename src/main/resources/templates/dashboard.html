@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/scripts.js}"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="navbar">
+    <div><strong>Dashboard - <span th:text="${#authentication.name}">User</span></strong></div>
+    <div>
+        <a th:href="@{/booking/summary}">My Bookings</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Welcome to the Ticket Booking System</h2>
+
+    <p>Select a service to start booking:</p>
+
+    <div style="display: flex; gap: 20px; margin-top: 30px; justify-content: center;">
+        <form th:action="@{/user/train}" method="get">
+            <button type="submit">Book Train Ticket</button>
+        </form>
+
+        <form th:action="@{/user/movie}" method="get">
+            <button type="submit">Book Movie Ticket</button>
+        </form>
+
+        <form th:action="@{/user/hotel}" method="get">
+            <button type="submit">Book Hotel</button>
+        </form>
+    </div>
+
+    <hr style="margin: 40px 0;">
+
+    <h3>Recent Bookings</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Service</th>
+            <th>Service Name</th>
+            <th>Event Date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${recentBookings}">
+            <td th:text="${booking.serviceType}">Train</td>
+            <td th:text="${booking.serviceName}">Rajdhani</td>
+            <td th:text="${#dates.format(booking.eventDate, 'dd-MM-yyyy')}">01-07-2025</td>
+            <td th:text="${booking.cancelled ? 'Cancelled' : 'Confirmed'}">Confirmed</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

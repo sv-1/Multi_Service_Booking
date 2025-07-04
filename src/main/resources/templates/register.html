@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register - Ticket Booking System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="container" style="max-width: 450px; margin-top: 70px;">
+    <h2 style="text-align: center;">User Registration</h2>
+
+    <form th:action="@{/register}" th:object="${user}" method="post" style="display: flex; flex-direction: column; gap: 15px;">
+
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" th:field="*{fullName}" placeholder="Enter your name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" placeholder="Enter your password" required minlength="6">
+
+        <label for="role">Register As:</label>
+        <select id="role" th:field="*{role}" required>
+            <option value="" disabled selected>-- Select Role --</option>
+            <option th:each="r : ${T(com.yourcompany.booking.model.enums.Role).values()}"
+                    th:value="${r}" th:text="${r}"></option>
+        </select>
+
+        <div th:if="${error}" style="color: red; text-align: center;">
+            <p th:text="${error}">Email already exists.</p>
+        </div>
+
+        <input type="submit" value="Register" style="margin-top: 10px;">
+
+        <p style="text-align: center;">
+            Already have an account?
+            <a th:href="@{/login}">Login here</a>
+        </p>
+    </form>
+</div>
+
+</body>
+</html>

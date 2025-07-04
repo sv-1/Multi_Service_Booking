@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Ticket System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+
+<div class="navbar">
+    <div><strong>Admin Panel</strong></div>
+    <div>
+        <a th:href="@{/admin/users}">Users</a>
+        <a th:href="@{/admin/bookings}">Bookings</a>
+        <a th:href="@{/admin/train/add}">➕ Add Train</a>
+        <a th:href="@{/admin/add-movie}">➕ Add Movie</a>
+        <a th:href="@{/admin/add-hotel}">➕ Add Hotel</a>
+        <a th:href="@{/logout}" style="color: red;">Logout</a>
+    </div>
+</div>
+
+
+<div class="container">
+    <h2>Welcome, Admin</h2>
+
+
+    <div class="msg success" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+    <div class="dashboard-cards">
+        <div class="card">
+            <h3>Total Bookings</h3>
+            <p th:text="${totalBookings}">0</p>
+        </div>
+        <div class="card">
+            <h3>Train Bookings</h3>
+            <p th:text="${summary.trainBookings}">0</p>
+        </div>
+        <div class="card">
+            <h3>Movie Bookings</h3>
+            <p th:text="${summary.movieBookings}">0</p>
+        </div>
+        <div class="card">
+            <h3>Hotel Bookings</h3>
+            <p th:text="${summary.hotelBookings}">0</p>
+        </div>
+        <div class="card">
+            <h3>Active Bookings</h3>
+            <p th:text="${activeBookings}">0</p>
+        </div>
+        <div class="card">
+            <h3>Cancelled Bookings</h3>
+            <p th:text="${cancelledBookings}">0</p>
+        </div>
+        <div class="card">
+            <h3>Total Users</h3>
+            <p th:text="${totalUsers}">0</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

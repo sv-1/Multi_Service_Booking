@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Booking - Ticket System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="container">
+    <h2>Book a Train</h2>
+
+
+    <div class="msg error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+
+    <div class="msg success" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+
+    <form th:action="@{/user/train}" th:object="${booking}" method="post">
+        <input type="hidden" name="debug" value="train-form-submitted" />
+
+
+        <label for="selectedTrainId">Select Train:</label>
+        <select id="selectedTrainId" th:field="*{selectedTrainId}" required>
+            <option value="" disabled selected>Select a train</option>
+            <option th:each="train : ${trainList}"
+                    th:value="${train.id}"
+                    th:text="${train.name}">
+            </option>
+        </select>
+
+
+        <label for="eventDate">Travel Date:</label>
+        <input type="date" id="eventDate"
+               th:field="*{eventDate}"
+               th:min="${T(java.time.LocalDate).now()}"
+               required />
+
+
+        <label for="seats">Number of Seats:</label>
+        <input type="number" id="seats"
+               th:field="*{seats}"
+               min="1" max="10"
+               required />
+
+        <button type="submit">Book Train</button>
+    </form>
+
+    <div style="text-align:center; margin-top: 15px;">
+        <a th:href="@{/user/dashboard}">Back to Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>

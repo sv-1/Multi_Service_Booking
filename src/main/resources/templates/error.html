@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error - Ticket Booking System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="container" style="text-align: center; margin-top: 80px;">
+    <h1>Oops! Something went wrong.</h1>
+
+    <h2 th:text="${statusCode}">500</h2>
+    <p th:text="${errorMessage}">An unexpected error occurred. Please try again later.</p>
+
+    <br>
+    <a th:href="@{/dashboard}" class="button">Go to Dashboard</a>
+</div>
+
+</body>
+</html>

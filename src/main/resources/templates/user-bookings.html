@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookings</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <script th:src="@{/js/scripts.js}"></script>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f3f3f3;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table th, table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #f0f0f0;
+    }
+
+    .btn-cancel {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+        background-color: #e60000;
+    }
+
+    .back-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-link a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back-link a:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>My Bookings</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Service Type</th>
+      <th>Service Name</th>
+      <th>Event Date</th>
+      <th>Seats</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="booking : ${bookings}">
+      <td th:text="${booking.serviceType}"></td>
+      <td th:text="${booking.serviceName}"></td>
+      <td th:text="${booking.eventDate}"></td>
+      <td th:text="${booking.seats}"></td>
+      <td th:text="${booking.cancelled ? 'Cancelled' : 'Active'}"></td>
+      <td>
+        <form th:action="@{'/user/cancel/' + ${booking.id}}" method="post"
+              th:if="${!booking.cancelled}">
+          <button type="submit" class="btn-cancel">Cancel</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="back-link">
+    <a th:href="@{/user/dashboard}">← Back to Dashboard</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Management</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+</head>
+<body>
+
+<div class="navbar">
+    <div><strong>Manage Users</strong></div>
+    <div>
+        <a th:href="@{/admin/dashboard}">Admin Dashboard</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Registered Users</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.fullName}">John Doe</td>
+            <td th:text="${user.email}">john@example.com</td>
+            <td th:text="${user.role}">USER</td>
+            <td>
+                <form th:action="@{/admin/users/delete/{id}(id=${user.id})}" method="post" onsubmit="return confirmDeleteUser()">
+                    <input type="submit" value="Delete" class="btn-danger">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmDeleteUser() {
+        return confirm("Are you sure you want to delete this user?");
+    }
+</script>
+
+</body>
+</html>
